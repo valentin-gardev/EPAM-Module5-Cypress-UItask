@@ -11,14 +11,16 @@ describe('Module 2, LoginPage tests', () => {
     // })
     it('1.Successful user login', () => {
         loginPage.open()
-        cy.get('[data-test="email"]').type('customer@practicesoftwaretesting.com')
-        cy.get('[data-test="password"]').type('welcome01')
+        loginPage.fill('customer2@practicesoftwaretesting.com','welcome01')
         cy.get('[data-test="login-submit"]').click()
-        cy.get('[data-test="nav-menu"]').should('contain.text', 'Jane Doe')
+        cy.get('[data-test="nav-menu"]').should('contain.text', 'Jack Howe')
     })
 
     it('2.Un-successful login with invalid password', () => {
-     
+        loginPage.open()
+        loginPage.fill('customer2@practicesoftwaretesting.com','welcome02')
+        cy.get('[data-test="login-submit"]').click()
+        cy.get('[data-test="login-error"]').should('have.text', 'Invalid email or password')
 });
 
     it('3.Create temp user, confirm that exists and delete it', () => {
@@ -45,7 +47,6 @@ describe('Module 2, LoginPage tests', () => {
                 deleteUserByEmail(adminToken, tempUser.email)
             })
 
-    
     })
 
 })
